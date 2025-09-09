@@ -1,251 +1,408 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>求人応募 - JobSearch</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#059669',
-                        'primary-foreground': '#ffffff',
-                        background: '#ffffff',
-                        foreground: '#0f172a',
-                        muted: '#f8fafc',
-                        'muted-foreground': '#64748b',
-                        border: '#e2e8f0',
-                        accent: '#f1f5f9'
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#059669",
+              "primary-foreground": "#ffffff",
+              background: "#ffffff",
+              foreground: "#0f172a",
+              muted: "#f8fafc",
+              "muted-foreground": "#64748b",
+              border: "#e2e8f0",
+              accent: "#f1f5f9",
+            },
+          },
+        },
+      };
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css"
+    />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-</head>
-<body class="min-h-screen bg-background">
+  </head>
+  <body class="min-h-screen bg-background">
     <!-- Header -->
     <header class="bg-primary text-primary-foreground shadow-sm">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                    <i data-lucide="building-2" class="h-8 w-8"></i>
-                    <h1 class="text-2xl font-bold">JobSearch</h1>
-                </div>
-                <nav class="hidden md:flex items-center space-x-6">
-                    <a href="index.html" class="hover:text-primary-foreground/80 transition-colors">求人検索</a>
-                    <a href="#" class="hover:text-primary-foreground/80 transition-colors">企業情報</a>
-                    <a href="#" class="hover:text-primary-foreground/80 transition-colors">転職ガイド</a>
-                    <button class="bg-white text-primary px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">ログイン</button>
-                    <button class="border border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary bg-transparent px-4 py-2 rounded-md text-sm font-medium transition-colors">会員登録</button>
-                </nav>
-            </div>
+      <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="building-2" class="h-8 w-8"></i>
+            <h1 class="text-2xl font-bold">JobSearch</h1>
+          </div>
+          <nav class="hidden md:flex items-center space-x-6">
+            <a
+              href="index.html"
+              class="hover:text-primary-foreground/80 transition-colors"
+              >求人検索</a
+            >
+            <a
+              href="#"
+              class="hover:text-primary-foreground/80 transition-colors"
+              >企業情報</a
+            >
+            <a
+              href="#"
+              class="hover:text-primary-foreground/80 transition-colors"
+              >転職ガイド</a
+            >
+            <button
+              class="bg-white text-primary px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors"
+            >
+              ログイン
+            </button>
+            <button
+              class="border border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary bg-transparent px-4 py-2 rounded-md text-sm font-medium transition-colors"
+            >
+              会員登録
+            </button>
+          </nav>
         </div>
+      </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <!-- Breadcrumb -->
-        <div class="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-            <a href="index.html" class="hover:text-foreground transition-colors">求人一覧</a>
-            <span>/</span>
-            <a href="job-detail.html" class="hover:text-foreground transition-colors">求人詳細</a>
-            <span>/</span>
-            <span class="text-foreground">応募</span>
-        </div>
+      <!-- Breadcrumb -->
+      <div class="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+        <a href="index.html" class="hover:text-foreground transition-colors"
+          >求人一覧</a
+        >
+        <span>/</span>
+        <a
+          href="job-detail.html"
+          class="hover:text-foreground transition-colors"
+          >求人詳細</a
+        >
+        <span>/</span>
+        <span class="text-foreground">応募</span>
+      </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Application Form -->
-            <div class="lg:col-span-2">
-                <div class="bg-white rounded-lg shadow-sm border border-border p-6">
-                    <div class="mb-6">
-                        <h2 class="text-2xl font-bold flex items-center gap-2 mb-2">
-                            <i data-lucide="file-text" class="h-5 w-5"></i>
-                            求人応募フォーム
-                        </h2>
-                        <p class="text-muted-foreground">以下の情報を入力して応募してください。すべての項目は必須です。</p>
-                    </div>
-
-                    <form id="applicationForm" class="space-y-6">
-                        <!-- Personal Information -->
-                        <div class="space-y-4">
-                            <h3 class="text-lg font-semibold flex items-center gap-2">
-                                <i data-lucide="user" class="h-4 w-4"></i>
-                                基本情報
-                            </h3>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="space-y-2">
-                                    <label for="firstName" class="block text-sm font-medium">姓 *</label>
-                                    <input type="text" id="firstName" name="firstName" placeholder="山田" required class="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-                                </div>
-                                <div class="space-y-2">
-                                    <label for="lastName" class="block text-sm font-medium">名 *</label>
-                                    <input type="text" id="lastName" name="lastName" placeholder="太郎" required class="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-                                </div>
-                            </div>
-
-                            <div class="space-y-2">
-                                <label for="email" class="block text-sm font-medium">メールアドレス *</label>
-                                <div class="relative">
-                                    <i data-lucide="mail" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4"></i>
-                                    <input type="email" id="email" name="email" placeholder="example@email.com" required class="w-full pl-10 pr-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-                                </div>
-                            </div>
-
-                            <div class="space-y-2">
-                                <label for="phone" class="block text-sm font-medium">電話番号 *</label>
-                                <div class="relative">
-                                    <i data-lucide="phone" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4"></i>
-                                    <input type="tel" id="phone" name="phone" placeholder="090-1234-5678" required class="w-full pl-10 pr-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-                                </div>
-                            </div>
-
-                            <div class="space-y-2">
-                                <label for="address" class="block text-sm font-medium">住所 *</label>
-                                <div class="relative">
-                                    <i data-lucide="map-pin" class="absolute left-3 top-3 text-muted-foreground h-4 w-4"></i>
-                                    <textarea id="address" name="address" placeholder="東京都渋谷区..." required class="w-full pl-10 pr-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent min-h-[80px]"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Resume Upload -->
-                        <div class="space-y-4">
-                            <h3 class="text-lg font-semibold flex items-center gap-2">
-                                <i data-lucide="upload" class="h-4 w-4"></i>
-                                履歴書・職務経歴書
-                            </h3>
-
-                            <div class="space-y-2">
-                                <label for="resume" class="block text-sm font-medium">履歴書ファイル *</label>
-                                <div class="border-2 border-dashed border-border rounded-lg p-6 text-center">
-                                    <input id="resume" type="file" accept=".pdf,.doc,.docx" required class="hidden">
-                                    <label for="resume" class="cursor-pointer">
-                                        <i data-lucide="upload" class="h-8 w-8 text-muted-foreground mx-auto mb-2"></i>
-                                        <p class="text-sm text-muted-foreground" id="resumeText">PDFまたはWordファイルをアップロード</p>
-                                        <p class="text-xs text-muted-foreground mt-1">最大サイズ: 10MB</p>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Experience and Motivation -->
-                        <div class="space-y-4">
-                            <h3 class="text-lg font-semibold">経験・志望動機</h3>
-
-                            <div class="space-y-2">
-                                <label for="experience" class="block text-sm font-medium">関連する経験・スキル *</label>
-                                <textarea id="experience" name="experience" placeholder="これまでの経験やスキルについて詳しく記載してください..." required class="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent min-h-[120px]"></textarea>
-                            </div>
-
-                            <div class="space-y-2">
-                                <label for="motivation" class="block text-sm font-medium">志望動機 *</label>
-                                <textarea id="motivation" name="motivation" placeholder="なぜこの職種・企業を志望するのか記載してください..." required class="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent min-h-[120px]"></textarea>
-                            </div>
-
-                            <div class="space-y-2">
-                                <label for="coverLetter" class="block text-sm font-medium">その他・自己PR</label>
-                                <textarea id="coverLetter" name="coverLetter" placeholder="その他アピールしたいことがあれば記載してください..." class="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent min-h-[100px]"></textarea>
-                            </div>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="flex flex-col sm:flex-row gap-4 pt-6">
-                            <button type="submit" class="flex-1 bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors">
-                                応募する
-                            </button>
-                            <button type="button" onclick="history.back()" class="border border-border bg-transparent px-6 py-3 rounded-md font-medium hover:bg-muted transition-colors">
-                                戻る
-                            </button>
-                        </div>
-                    </form>
-                </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Application Form -->
+        <div class="lg:col-span-2">
+          <div class="bg-white rounded-lg shadow-sm border border-border p-6">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold flex items-center gap-2 mb-2">
+                <i data-lucide="file-text" class="h-5 w-5"></i>
+                求人応募フォーム
+              </h2>
+              <p class="text-muted-foreground">
+                以下の情報を入力して応募してください。すべての項目は必須です。
+              </p>
             </div>
 
-            <!-- Job Summary Sidebar -->
-            <div class="space-y-6">
-                <div class="bg-white rounded-lg shadow-sm border border-border p-6">
-                    <h3 class="text-xl font-bold mb-4">応募する求人</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-semibold text-lg text-balance">フロントエンドエンジニア</h4>
-                            <p class="text-muted-foreground">テックスタートアップ株式会社</p>
-                        </div>
+            <form id="applicationForm" class="space-y-6">
+              <!-- Personal Information -->
+              <div class="space-y-4">
+                <h3 class="text-lg font-semibold flex items-center gap-2">
+                  <i data-lucide="user" class="h-4 w-4"></i>
+                  基本情報
+                </h3>
 
-                        <div class="space-y-2">
-                            <div class="flex items-center gap-2 text-sm">
-                                <i data-lucide="map-pin" class="h-4 w-4 text-muted-foreground"></i>
-                                東京都渋谷区
-                            </div>
-                            <div class="flex items-center gap-2 text-sm">
-                                <i data-lucide="building-2" class="h-4 w-4 text-muted-foreground"></i>
-                                年収400万円〜800万円
-                            </div>
-                        </div>
-
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-2 py-1 bg-accent text-accent-foreground text-xs rounded-full border border-border">React</span>
-                            <span class="px-2 py-1 bg-accent text-accent-foreground text-xs rounded-full border border-border">TypeScript</span>
-                            <span class="px-2 py-1 bg-accent text-accent-foreground text-xs rounded-full border border-border">Next.js</span>
-                        </div>
-
-                        <div class="pt-4 border-t">
-                            <a href="job-detail.html" class="w-full border border-border bg-transparent px-4 py-2 rounded-md text-sm font-medium hover:bg-muted transition-colors text-center block">
-                                求人詳細を見る
-                            </a>
-                        </div>
-                    </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="space-y-2">
+                    <label for="firstName" class="block text-sm font-medium"
+                      >姓 *</label
+                    >
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      placeholder="山田"
+                      required
+                      class="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    />
+                  </div>
+                  <div class="space-y-2">
+                    <label for="lastName" class="block text-sm font-medium"
+                      >名 *</label
+                    >
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      placeholder="太郎"
+                      required
+                      class="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    />
+                  </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow-sm border border-border p-6">
-                    <h3 class="text-base font-bold mb-4">応募前の確認事項</h3>
-                    <div class="space-y-3 text-sm">
-                        <div class="flex items-start gap-2">
-                            <div class="w-1 h-1 bg-primary rounded-full mt-2"></div>
-                            <p>応募後、企業から連絡があります</p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <div class="w-1 h-1 bg-primary rounded-full mt-2"></div>
-                            <p>履歴書は必ずPDFまたはWord形式でアップロードしてください</p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <div class="w-1 h-1 bg-primary rounded-full mt-2"></div>
-                            <p>応募内容は後から変更できません</p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <div class="w-1 h-1 bg-primary rounded-full mt-2"></div>
-                            <p>応募状況はマイページで確認できます</p>
-                        </div>
-                    </div>
+                <div class="space-y-2">
+                  <label for="email" class="block text-sm font-medium"
+                    >メールアドレス *</label
+                  >
+                  <div class="relative">
+                    <i
+                      data-lucide="mail"
+                      class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4"
+                    ></i>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="example@email.com"
+                      required
+                      class="w-full pl-10 pr-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    />
+                  </div>
                 </div>
-            </div>
+
+                <div class="space-y-2">
+                  <label for="phone" class="block text-sm font-medium"
+                    >電話番号 *</label
+                  >
+                  <div class="relative">
+                    <i
+                      data-lucide="phone"
+                      class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4"
+                    ></i>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      placeholder="090-1234-5678"
+                      required
+                      class="w-full pl-10 pr-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <label for="address" class="block text-sm font-medium"
+                    >住所 *</label
+                  >
+                  <div class="relative">
+                    <i
+                      data-lucide="map-pin"
+                      class="absolute left-3 top-3 text-muted-foreground h-4 w-4"
+                    ></i>
+                    <textarea
+                      id="address"
+                      name="address"
+                      placeholder="東京都渋谷区..."
+                      required
+                      class="w-full pl-10 pr-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent min-h-[80px]"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Resume Upload -->
+              <div class="space-y-4">
+                <h3 class="text-lg font-semibold flex items-center gap-2">
+                  <i data-lucide="upload" class="h-4 w-4"></i>
+                  履歴書・職務経歴書
+                </h3>
+
+                <div class="space-y-2">
+                  <label for="resume" class="block text-sm font-medium"
+                    >履歴書ファイル *</label
+                  >
+                  <div
+                    class="border-2 border-dashed border-border rounded-lg p-6 text-center"
+                  >
+                    <input
+                      id="resume"
+                      type="file"
+                      accept=".pdf,.doc,.docx"
+                      required
+                      class="hidden"
+                    />
+                    <label for="resume" class="cursor-pointer">
+                      <i
+                        data-lucide="upload"
+                        class="h-8 w-8 text-muted-foreground mx-auto mb-2"
+                      ></i>
+                      <p class="text-sm text-muted-foreground" id="resumeText">
+                        PDFまたはWordファイルをアップロード
+                      </p>
+                      <p class="text-xs text-muted-foreground mt-1">
+                        最大サイズ: 10MB
+                      </p>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Experience and Motivation -->
+              <div class="space-y-4">
+                <h3 class="text-lg font-semibold">経験・志望動機</h3>
+
+                <div class="space-y-2">
+                  <label for="experience" class="block text-sm font-medium"
+                    >関連する経験・スキル *</label
+                  >
+                  <textarea
+                    id="experience"
+                    name="experience"
+                    placeholder="これまでの経験やスキルについて詳しく記載してください..."
+                    required
+                    class="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent min-h-[120px]"
+                  ></textarea>
+                </div>
+
+                <div class="space-y-2">
+                  <label for="motivation" class="block text-sm font-medium"
+                    >志望動機 *</label
+                  >
+                  <textarea
+                    id="motivation"
+                    name="motivation"
+                    placeholder="なぜこの職種・企業を志望するのか記載してください..."
+                    required
+                    class="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent min-h-[120px]"
+                  ></textarea>
+                </div>
+
+                <div class="space-y-2">
+                  <label for="coverLetter" class="block text-sm font-medium"
+                    >その他・自己PR</label
+                  >
+                  <textarea
+                    id="coverLetter"
+                    name="coverLetter"
+                    placeholder="その他アピールしたいことがあれば記載してください..."
+                    class="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent min-h-[100px]"
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                <button
+                  type="submit"
+                  class="flex-1 bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
+                >
+                  応募する
+                </button>
+                <button
+                  type="button"
+                  onclick="history.back()"
+                  class="border border-border bg-transparent px-6 py-3 rounded-md font-medium hover:bg-muted transition-colors"
+                >
+                  戻る
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
+
+        <!-- Job Summary Sidebar -->
+        <div class="space-y-6">
+          <div class="bg-white rounded-lg shadow-sm border border-border p-6">
+            <h3 class="text-xl font-bold mb-4">応募する求人</h3>
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-semibold text-lg text-balance">
+                  フロントエンドエンジニア
+                </h4>
+                <p class="text-muted-foreground">
+                  テックスタートアップ株式会社
+                </p>
+              </div>
+
+              <div class="space-y-2">
+                <div class="flex items-center gap-2 text-sm">
+                  <i
+                    data-lucide="map-pin"
+                    class="h-4 w-4 text-muted-foreground"
+                  ></i>
+                  東京都渋谷区
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <i
+                    data-lucide="building-2"
+                    class="h-4 w-4 text-muted-foreground"
+                  ></i>
+                  年収400万円〜800万円
+                </div>
+              </div>
+
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-2 py-1 bg-accent text-accent-foreground text-xs rounded-full border border-border"
+                  >React</span
+                >
+                <span
+                  class="px-2 py-1 bg-accent text-accent-foreground text-xs rounded-full border border-border"
+                  >TypeScript</span
+                >
+                <span
+                  class="px-2 py-1 bg-accent text-accent-foreground text-xs rounded-full border border-border"
+                  >Next.js</span
+                >
+              </div>
+
+              <div class="pt-4 border-t">
+                <a
+                  href="job-detail.html"
+                  class="w-full border border-border bg-transparent px-4 py-2 rounded-md text-sm font-medium hover:bg-muted transition-colors text-center block"
+                >
+                  求人詳細を見る
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-sm border border-border p-6">
+            <h3 class="text-base font-bold mb-4">応募前の確認事項</h3>
+            <div class="space-y-3 text-sm">
+              <div class="flex items-start gap-2">
+                <div class="w-1 h-1 bg-primary rounded-full mt-2"></div>
+                <p>応募後、企業から連絡があります</p>
+              </div>
+              <div class="flex items-start gap-2">
+                <div class="w-1 h-1 bg-primary rounded-full mt-2"></div>
+                <p>履歴書は必ずPDFまたはWord形式でアップロードしてください</p>
+              </div>
+              <div class="flex items-start gap-2">
+                <div class="w-1 h-1 bg-primary rounded-full mt-2"></div>
+                <p>応募内容は後から変更できません</p>
+              </div>
+              <div class="flex items-start gap-2">
+                <div class="w-1 h-1 bg-primary rounded-full mt-2"></div>
+                <p>応募状況はマイページで確認できます</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+      // Initialize Lucide icons
+      lucide.createIcons();
 
-        // Handle file upload display
-        document.getElementById('resume').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            const resumeText = document.getElementById('resumeText');
-            if (file) {
-                resumeText.textContent = file.name;
-            } else {
-                resumeText.textContent = 'PDFまたはWordファイルをアップロード';
-            }
+      // Handle file upload display
+      document
+        .getElementById("resume")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          const resumeText = document.getElementById("resumeText");
+          if (file) {
+            resumeText.textContent = file.name;
+          } else {
+            resumeText.textContent = "PDFまたはWordファイルをアップロード";
+          }
         });
 
-        // Handle form submission
-        document.getElementById('applicationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('応募が完了しました！企業からの連絡をお待ちください。');
-            // In a real application, you would send the form data to a server
+      // Handle form submission
+      document
+        .getElementById("applicationForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("応募が完了しました！企業からの連絡をお待ちください。");
+          // In a real application, you would send the form data to a server
         });
     </script>
-</body>
+  </body>
 </html>

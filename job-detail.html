@@ -1,234 +1,295 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>求人詳細 - JobSearch</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#059669',
-                        'primary-foreground': '#ffffff',
-                        background: '#ffffff',
-                        foreground: '#0f172a',
-                        muted: '#f8fafc',
-                        'muted-foreground': '#64748b',
-                        border: '#e2e8f0',
-                        accent: '#f1f5f9'
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#059669",
+              "primary-foreground": "#ffffff",
+              background: "#ffffff",
+              foreground: "#0f172a",
+              muted: "#f8fafc",
+              "muted-foreground": "#64748b",
+              border: "#e2e8f0",
+              accent: "#f1f5f9",
+            },
+          },
+        },
+      };
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css"
+    />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-</head>
-<body class="min-h-screen bg-background">
+  </head>
+  <body class="min-h-screen bg-background">
     <!-- Header -->
     <header class="bg-primary text-primary-foreground shadow-sm">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                    <i data-lucide="building-2" class="h-8 w-8"></i>
-                    <h1 class="text-2xl font-bold">JobSearch</h1>
-                </div>
-                <nav class="hidden md:flex items-center space-x-6">
-                    <a href="index.html" class="hover:text-primary-foreground/80 transition-colors">求人検索</a>
-                    <a href="#" class="hover:text-primary-foreground/80 transition-colors">企業情報</a>
-                    <a href="#" class="hover:text-primary-foreground/80 transition-colors">転職ガイド</a>
-                    <button class="bg-white text-primary px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">ログイン</button>
-                    <button class="border border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary bg-transparent px-4 py-2 rounded-md text-sm font-medium transition-colors">会員登録</button>
-                </nav>
-            </div>
+      <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="building-2" class="h-8 w-8"></i>
+            <h1 class="text-2xl font-bold">JobSearch</h1>
+          </div>
+          <nav class="hidden md:flex items-center space-x-6">
+            <a
+              href="index.html"
+              class="hover:text-primary-foreground/80 transition-colors"
+              >求人検索</a
+            >
+            <a
+              href="#"
+              class="hover:text-primary-foreground/80 transition-colors"
+              >企業情報</a
+            >
+            <a
+              href="#"
+              class="hover:text-primary-foreground/80 transition-colors"
+              >転職ガイド</a
+            >
+            <button
+              class="bg-white text-primary px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors"
+            >
+              ログイン
+            </button>
+            <button
+              class="border border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary bg-transparent px-4 py-2 rounded-md text-sm font-medium transition-colors"
+            >
+              会員登録
+            </button>
+          </nav>
         </div>
+      </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <!-- Breadcrumb -->
-        <div class="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-            <a href="index.html" class="hover:text-foreground transition-colors flex items-center gap-1">
-                <i data-lucide="arrow-left" class="h-4 w-4"></i>
-                求人一覧に戻る
-            </a>
-        </div>
+      <!-- Breadcrumb -->
+      <div class="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+        <a
+          href="index.html"
+          class="hover:text-foreground transition-colors flex items-center gap-1"
+        >
+          <i data-lucide="arrow-left" class="h-4 w-4"></i>
+          求人一覧に戻る
+        </a>
+      </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Main Content -->
-            <div class="lg:col-span-2 space-y-6">
-                <!-- Job Header -->
-                <div class="bg-white rounded-lg shadow-sm border border-border p-6">
-                    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-                        <div class="flex-1">
-                            <div class="flex items-start justify-between mb-2">
-                                <h1 id="jobTitle" class="text-3xl font-bold text-foreground text-balance">フロントエンドエンジニア</h1>
-                                <span id="jobType" class="ml-2 px-2 py-1 bg-accent text-accent-foreground text-xs rounded-full">正社員</span>
-                            </div>
-                            <h2 id="companyName" class="text-xl font-semibold text-muted-foreground mb-4">テックスタートアップ株式会社</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-6">
+          <!-- Job Header -->
+          <div class="bg-white rounded-lg shadow-sm border border-border p-6">
+            <div
+              class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6"
+            >
+              <div class="flex-1">
+                <div class="flex items-start justify-between mb-2">
+                  <h1
+                    id="jobTitle"
+                    class="text-3xl font-bold text-foreground text-balance"
+                  >
+                    フロントエンドエンジニア
+                  </h1>
+                  <span
+                    id="jobType"
+                    class="ml-2 px-2 py-1 bg-accent text-accent-foreground text-xs rounded-full"
+                    >正社員</span
+                  >
+                </div>
+                <h2
+                  id="companyName"
+                  class="text-xl font-semibold text-muted-foreground mb-4"
+                >
+                  テックスタートアップ株式会社
+                </h2>
 
-                            <div class="flex flex-wrap items-center gap-4 text-muted-foreground mb-4">
-                                <div class="flex items-center gap-1">
-                                    <i data-lucide="map-pin" class="h-4 w-4"></i>
-                                    <span id="jobLocation">東京都渋谷区</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i data-lucide="dollar-sign" class="h-4 w-4"></i>
-                                    <span id="jobSalary">年収400万円〜800万円</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i data-lucide="clock" class="h-4 w-4"></i>
-                                    <span id="jobPosted">3日前</span>
-                                </div>
-                            </div>
-
-                            <div id="jobTags" class="flex flex-wrap gap-2">
-                                <!-- Tags will be populated by JavaScript -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row gap-3">
-                        <a href="apply.html" class="bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-center">
-                            この求人に応募する
-                        </a>
-                        <button class="border border-border bg-transparent px-6 py-3 rounded-md font-medium hover:bg-muted transition-colors flex items-center justify-center gap-2">
-                            <i data-lucide="heart" class="h-4 w-4"></i>
-                            お気に入り
-                        </button>
-                        <button class="border border-border bg-transparent px-6 py-3 rounded-md font-medium hover:bg-muted transition-colors flex items-center justify-center gap-2">
-                            <i data-lucide="share-2" class="h-4 w-4"></i>
-                            シェア
-                        </button>
-                    </div>
+                <div
+                  class="flex flex-wrap items-center gap-4 text-muted-foreground mb-4"
+                >
+                  <div class="flex items-center gap-1">
+                    <i data-lucide="map-pin" class="h-4 w-4"></i>
+                    <span id="jobLocation">東京都渋谷区</span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <i data-lucide="dollar-sign" class="h-4 w-4"></i>
+                    <span id="jobSalary">年収400万円〜800万円</span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <i data-lucide="clock" class="h-4 w-4"></i>
+                    <span id="jobPosted">3日前</span>
+                  </div>
                 </div>
 
-                <!-- Job Description -->
-                <div class="bg-white rounded-lg shadow-sm border border-border p-6">
-                    <h3 class="text-xl font-bold mb-4">求人詳細</h3>
-                    <div id="jobDescription" class="prose prose-sm max-w-none">
-                        <div class="whitespace-pre-line text-foreground leading-relaxed">
-                            私たちは急成長中のテックスタートアップで、革新的なWebアプリケーションの開発を行っています。
-
-                            【仕事内容】
-                            • React/Next.jsを使用したフロントエンド開発
-                            • レスポンシブデザインの実装
-                            • APIとの連携
-                            • コードレビューとチーム開発
-                            • 新機能の企画・設計への参加
-
-                            【必要なスキル】
-                            • JavaScript/TypeScriptの実務経験（2年以上）
-                            • React.jsの開発経験
-                            • HTML/CSSの深い理解
-                            • Gitを使用したチーム開発経験
-
-                            【歓迎するスキル】
-                            • Next.js、Tailwind CSSの経験
-                            • バックエンド開発の知識
-                            • UI/UXデザインへの理解
-                            • アジャイル開発の経験
-
-                            【働く環境】
-                            • フレックスタイム制
-                            • リモートワーク可（週2-3日出社）
-                            • 最新の開発環境
-                            • 学習支援制度あり
-                        </div>
-                    </div>
+                <div id="jobTags" class="flex flex-wrap gap-2">
+                  <!-- Tags will be populated by JavaScript -->
                 </div>
-
-                <!-- Company Info -->
-                <div class="bg-white rounded-lg shadow-sm border border-border p-6">
-                    <h3 class="text-xl font-bold mb-4">企業情報</h3>
-                    <div class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="building-2" class="h-4 w-4 text-muted-foreground"></i>
-                                <span class="text-sm text-muted-foreground">会社名:</span>
-                                <span class="font-medium">テックスタートアップ株式会社</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="users" class="h-4 w-4 text-muted-foreground"></i>
-                                <span class="text-sm text-muted-foreground">従業員数:</span>
-                                <span class="font-medium">50名</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="calendar" class="h-4 w-4 text-muted-foreground"></i>
-                                <span class="text-sm text-muted-foreground">設立:</span>
-                                <span class="font-medium">2020年</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="briefcase" class="h-4 w-4 text-muted-foreground"></i>
-                                <span class="text-sm text-muted-foreground">業界:</span>
-                                <span class="font-medium">IT・インターネット</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
 
-            <!-- Sidebar -->
-            <div class="space-y-6">
-                <!-- Quick Apply -->
-                <div class="bg-white rounded-lg shadow-sm border border-border p-6">
-                    <h3 class="text-xl font-bold mb-4">応募情報</h3>
-                    <div class="space-y-4">
-                        <a href="apply.html" class="w-full bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-center block">
-                            この求人に応募する
-                        </a>
-                        <button class="w-full border border-border bg-transparent px-6 py-3 rounded-md font-medium hover:bg-muted transition-colors">
-                            企業に質問する
-                        </button>
-                        <div class="text-xs text-muted-foreground text-center">応募には会員登録が必要です</div>
-                    </div>
-                </div>
-
-                <!-- Job Details -->
-                <div class="bg-white rounded-lg shadow-sm border border-border p-6">
-                    <h3 class="text-xl font-bold mb-4">勤務条件</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-medium text-sm text-muted-foreground mb-1">勤務時間</h4>
-                            <p class="text-sm">9:00-18:00（フレックスタイム制）</p>
-                        </div>
-                        <hr class="border-border">
-                        <div>
-                            <h4 class="font-medium text-sm text-muted-foreground mb-1">休日・休暇</h4>
-                            <p class="text-sm">土日祝、年末年始、有給休暇</p>
-                        </div>
-                        <hr class="border-border">
-                        <div>
-                            <h4 class="font-medium text-sm text-muted-foreground mb-2">福利厚生</h4>
-                            <div class="space-y-1">
-                                <div class="text-sm flex items-center gap-2">
-                                    <div class="w-1 h-1 bg-primary rounded-full"></div>
-                                    社会保険完備
-                                </div>
-                                <div class="text-sm flex items-center gap-2">
-                                    <div class="w-1 h-1 bg-primary rounded-full"></div>
-                                    交通費支給
-                                </div>
-                                <div class="text-sm flex items-center gap-2">
-                                    <div class="w-1 h-1 bg-primary rounded-full"></div>
-                                    リモートワーク可
-                                </div>
-                                <div class="text-sm flex items-center gap-2">
-                                    <div class="w-1 h-1 bg-primary rounded-full"></div>
-                                    書籍購入支援
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <a
+                href="apply.html"
+                class="bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-center"
+              >
+                この求人に応募する
+              </a>
+              <button
+                class="border border-border bg-transparent px-6 py-3 rounded-md font-medium hover:bg-muted transition-colors flex items-center justify-center gap-2"
+              >
+                <i data-lucide="heart" class="h-4 w-4"></i>
+                お気に入り
+              </button>
+              <button
+                class="border border-border bg-transparent px-6 py-3 rounded-md font-medium hover:bg-muted transition-colors flex items-center justify-center gap-2"
+              >
+                <i data-lucide="share-2" class="h-4 w-4"></i>
+                シェア
+              </button>
             </div>
+          </div>
+
+          <!-- Job Description -->
+          <div class="bg-white rounded-lg shadow-sm border border-border p-6">
+            <h3 class="text-xl font-bold mb-4">求人詳細</h3>
+            <div id="jobDescription" class="prose prose-sm max-w-none">
+              <div class="whitespace-pre-line text-foreground leading-relaxed">
+                私たちは急成長中のテックスタートアップで、革新的なWebアプリケーションの開発を行っています。
+                【仕事内容】 • React/Next.jsを使用したフロントエンド開発 •
+                レスポンシブデザインの実装 • APIとの連携 •
+                コードレビューとチーム開発 • 新機能の企画・設計への参加
+                【必要なスキル】 • JavaScript/TypeScriptの実務経験（2年以上） •
+                React.jsの開発経験 • HTML/CSSの深い理解 •
+                Gitを使用したチーム開発経験 【歓迎するスキル】 •
+                Next.js、Tailwind CSSの経験 • バックエンド開発の知識 •
+                UI/UXデザインへの理解 • アジャイル開発の経験 【働く環境】 •
+                フレックスタイム制 • リモートワーク可（週2-3日出社） •
+                最新の開発環境 • 学習支援制度あり
+              </div>
+            </div>
+          </div>
+
+          <!-- Company Info -->
+          <div class="bg-white rounded-lg shadow-sm border border-border p-6">
+            <h3 class="text-xl font-bold mb-4">企業情報</h3>
+            <div class="space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex items-center gap-2">
+                  <i
+                    data-lucide="building-2"
+                    class="h-4 w-4 text-muted-foreground"
+                  ></i>
+                  <span class="text-sm text-muted-foreground">会社名:</span>
+                  <span class="font-medium">テックスタートアップ株式会社</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i
+                    data-lucide="users"
+                    class="h-4 w-4 text-muted-foreground"
+                  ></i>
+                  <span class="text-sm text-muted-foreground">従業員数:</span>
+                  <span class="font-medium">50名</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i
+                    data-lucide="calendar"
+                    class="h-4 w-4 text-muted-foreground"
+                  ></i>
+                  <span class="text-sm text-muted-foreground">設立:</span>
+                  <span class="font-medium">2020年</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i
+                    data-lucide="briefcase"
+                    class="h-4 w-4 text-muted-foreground"
+                  ></i>
+                  <span class="text-sm text-muted-foreground">業界:</span>
+                  <span class="font-medium">IT・インターネット</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- Sidebar -->
+        <div class="space-y-6">
+          <!-- Quick Apply -->
+          <div class="bg-white rounded-lg shadow-sm border border-border p-6">
+            <h3 class="text-xl font-bold mb-4">応募情報</h3>
+            <div class="space-y-4">
+              <a
+                href="apply.html"
+                class="w-full bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors text-center block"
+              >
+                この求人に応募する
+              </a>
+              <button
+                class="w-full border border-border bg-transparent px-6 py-3 rounded-md font-medium hover:bg-muted transition-colors"
+              >
+                企業に質問する
+              </button>
+              <div class="text-xs text-muted-foreground text-center">
+                応募には会員登録が必要です
+              </div>
+            </div>
+          </div>
+
+          <!-- Job Details -->
+          <div class="bg-white rounded-lg shadow-sm border border-border p-6">
+            <h3 class="text-xl font-bold mb-4">勤務条件</h3>
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-medium text-sm text-muted-foreground mb-1">
+                  勤務時間
+                </h4>
+                <p class="text-sm">9:00-18:00（フレックスタイム制）</p>
+              </div>
+              <hr class="border-border" />
+              <div>
+                <h4 class="font-medium text-sm text-muted-foreground mb-1">
+                  休日・休暇
+                </h4>
+                <p class="text-sm">土日祝、年末年始、有給休暇</p>
+              </div>
+              <hr class="border-border" />
+              <div>
+                <h4 class="font-medium text-sm text-muted-foreground mb-2">
+                  福利厚生
+                </h4>
+                <div class="space-y-1">
+                  <div class="text-sm flex items-center gap-2">
+                    <div class="w-1 h-1 bg-primary rounded-full"></div>
+                    社会保険完備
+                  </div>
+                  <div class="text-sm flex items-center gap-2">
+                    <div class="w-1 h-1 bg-primary rounded-full"></div>
+                    交通費支給
+                  </div>
+                  <div class="text-sm flex items-center gap-2">
+                    <div class="w-1 h-1 bg-primary rounded-full"></div>
+                    リモートワーク可
+                  </div>
+                  <div class="text-sm flex items-center gap-2">
+                    <div class="w-1 h-1 bg-primary rounded-full"></div>
+                    書籍購入支援
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+      // Initialize Lucide icons
+      lucide.createIcons();
     </script>
-</body>
+  </body>
 </html>

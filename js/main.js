@@ -72,58 +72,76 @@ const jobListings = [
     tags: ["SEO", "Google Analytics", "SNS運用", "コンテンツ制作"],
     prefecture: "東京都",
   },
-]
+];
 
-let filteredJobs = [...jobListings]
-let currentSort = "newest"
+let filteredJobs = [...jobListings];
+let currentSort = "newest";
 
 // Import Lucide icons library
-const lucide = require("lucide")
+const lucide = require("lucide");
 
 // Initialize the page
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize Lucide icons
-  lucide.createIcons()
+  lucide.createIcons();
 
   // Render initial job listings
-  renderJobListings()
+  renderJobListings();
 
   // Set up event listeners
-  setupEventListeners()
-})
+  setupEventListeners();
+});
 
 function setupEventListeners() {
   // Search form
-  document.getElementById("searchForm").addEventListener("submit", handleSearch)
+  document
+    .getElementById("searchForm")
+    .addEventListener("submit", handleSearch);
 
   // Filter checkboxes
-  document.querySelectorAll(".employment-filter, .salary-filter, .location-filter").forEach((checkbox) => {
-    checkbox.addEventListener("change", applyFilters)
-  })
+  document
+    .querySelectorAll(".employment-filter, .salary-filter, .location-filter")
+    .forEach((checkbox) => {
+      checkbox.addEventListener("change", applyFilters);
+    });
 
   // Clear filters button
-  document.getElementById("clearFilters").addEventListener("click", clearAllFilters)
+  document
+    .getElementById("clearFilters")
+    .addEventListener("click", clearAllFilters);
 
   // Sort dropdown
-  document.getElementById("sortSelect").addEventListener("change", handleSort)
+  document.getElementById("sortSelect").addEventListener("change", handleSort);
 
   // Real-time search
-  document.getElementById("keywordSearch").addEventListener("input", applyFilters)
-  document.getElementById("locationSearch").addEventListener("input", applyFilters)
+  document
+    .getElementById("keywordSearch")
+    .addEventListener("input", applyFilters);
+  document
+    .getElementById("locationSearch")
+    .addEventListener("input", applyFilters);
 }
 
 function handleSearch(e) {
-  e.preventDefault()
-  applyFilters()
+  e.preventDefault();
+  applyFilters();
 }
 
 function applyFilters() {
-  const keyword = document.getElementById("keywordSearch").value.toLowerCase()
-  const location = document.getElementById("locationSearch").value.toLowerCase()
+  const keyword = document.getElementById("keywordSearch").value.toLowerCase();
+  const location = document
+    .getElementById("locationSearch")
+    .value.toLowerCase();
 
-  const employmentTypes = Array.from(document.querySelectorAll(".employment-filter:checked")).map((cb) => cb.value)
-  const salaryRanges = Array.from(document.querySelectorAll(".salary-filter:checked")).map((cb) => cb.value)
-  const locations = Array.from(document.querySelectorAll(".location-filter:checked")).map((cb) => cb.value)
+  const employmentTypes = Array.from(
+    document.querySelectorAll(".employment-filter:checked")
+  ).map((cb) => cb.value);
+  const salaryRanges = Array.from(
+    document.querySelectorAll(".salary-filter:checked")
+  ).map((cb) => cb.value);
+  const locations = Array.from(
+    document.querySelectorAll(".location-filter:checked")
+  ).map((cb) => cb.value);
 
   filteredJobs = jobListings.filter((job) => {
     // Keyword filter
@@ -132,100 +150,124 @@ function applyFilters() {
       job.title.toLowerCase().includes(keyword) ||
       job.company.toLowerCase().includes(keyword) ||
       job.description.toLowerCase().includes(keyword) ||
-      job.tags.some((tag) => tag.toLowerCase().includes(keyword))
+      job.tags.some((tag) => tag.toLowerCase().includes(keyword));
 
     // Location filter
     const matchesLocation =
-      !location || job.location.toLowerCase().includes(location) || job.prefecture.toLowerCase().includes(location)
+      !location ||
+      job.location.toLowerCase().includes(location) ||
+      job.prefecture.toLowerCase().includes(location);
 
     // Employment type filter
-    const matchesEmployment = employmentTypes.length === 0 || employmentTypes.includes(job.type)
+    const matchesEmployment =
+      employmentTypes.length === 0 || employmentTypes.includes(job.type);
 
     // Salary filter (simplified)
     const matchesSalary =
       salaryRanges.length === 0 ||
       salaryRanges.some((range) => {
         if (range === "300-400")
-          return job.salary.includes("300") || job.salary.includes("350") || job.salary.includes("400")
+          return (
+            job.salary.includes("300") ||
+            job.salary.includes("350") ||
+            job.salary.includes("400")
+          );
         if (range === "400-600")
-          return job.salary.includes("400") || job.salary.includes("500") || job.salary.includes("600")
+          return (
+            job.salary.includes("400") ||
+            job.salary.includes("500") ||
+            job.salary.includes("600")
+          );
         if (range === "600-800")
-          return job.salary.includes("600") || job.salary.includes("700") || job.salary.includes("800")
+          return (
+            job.salary.includes("600") ||
+            job.salary.includes("700") ||
+            job.salary.includes("800")
+          );
         if (range === "800+")
           return (
             job.salary.includes("800") ||
             job.salary.includes("900") ||
             job.salary.includes("1000") ||
             job.salary.includes("1200")
-          )
-        return false
-      })
+          );
+        return false;
+      });
 
     // Prefecture filter
-    const matchesPrefecture = locations.length === 0 || locations.includes(job.prefecture)
+    const matchesPrefecture =
+      locations.length === 0 || locations.includes(job.prefecture);
 
-    return matchesKeyword && matchesLocation && matchesEmployment && matchesSalary && matchesPrefecture
-  })
+    return (
+      matchesKeyword &&
+      matchesLocation &&
+      matchesEmployment &&
+      matchesSalary &&
+      matchesPrefecture
+    );
+  });
 
-  sortJobs()
-  renderJobListings()
+  sortJobs();
+  renderJobListings();
 }
 
 function clearAllFilters() {
-  document.getElementById("keywordSearch").value = ""
-  document.getElementById("locationSearch").value = ""
-  document.querySelectorAll(".employment-filter, .salary-filter, .location-filter").forEach((checkbox) => {
-    checkbox.checked = false
-  })
-  document.getElementById("sortSelect").value = "newest"
-  currentSort = "newest"
+  document.getElementById("keywordSearch").value = "";
+  document.getElementById("locationSearch").value = "";
+  document
+    .querySelectorAll(".employment-filter, .salary-filter, .location-filter")
+    .forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+  document.getElementById("sortSelect").value = "newest";
+  currentSort = "newest";
 
-  filteredJobs = [...jobListings]
-  sortJobs()
-  renderJobListings()
+  filteredJobs = [...jobListings];
+  sortJobs();
+  renderJobListings();
 }
 
 function handleSort(e) {
-  currentSort = e.target.value
-  sortJobs()
-  renderJobListings()
+  currentSort = e.target.value;
+  sortJobs();
+  renderJobListings();
 }
 
 function sortJobs() {
   switch (currentSort) {
     case "salary":
       filteredJobs.sort((a, b) => {
-        const salaryA = Number.parseInt(a.salary.match(/\d+/g)?.[0] || "0")
-        const salaryB = Number.parseInt(b.salary.match(/\d+/g)?.[0] || "0")
-        return salaryB - salaryA
-      })
-      break
+        const salaryA = Number.parseInt(a.salary.match(/\d+/g)?.[0] || "0");
+        const salaryB = Number.parseInt(b.salary.match(/\d+/g)?.[0] || "0");
+        return salaryB - salaryA;
+      });
+      break;
     case "popular":
       // Simulate popularity sorting (in real app, this would be based on view counts, etc.)
-      filteredJobs.sort(() => Math.random() - 0.5)
-      break
+      filteredJobs.sort(() => Math.random() - 0.5);
+      break;
     case "newest":
     default:
       filteredJobs.sort((a, b) => {
-        const daysA = getDaysFromPosted(a.posted)
-        const daysB = getDaysFromPosted(b.posted)
-        return daysA - daysB
-      })
-      break
+        const daysA = getDaysFromPosted(a.posted);
+        const daysB = getDaysFromPosted(b.posted);
+        return daysA - daysB;
+      });
+      break;
   }
 }
 
 function getDaysFromPosted(posted) {
-  if (posted.includes("日前")) return Number.parseInt(posted)
-  if (posted.includes("週間前")) return Number.parseInt(posted) * 7
-  return 0
+  if (posted.includes("日前")) return Number.parseInt(posted);
+  if (posted.includes("週間前")) return Number.parseInt(posted) * 7;
+  return 0;
 }
 
 function renderJobListings() {
-  const container = document.getElementById("jobListings")
-  const jobCount = document.getElementById("jobCount")
+  const container = document.getElementById("jobListings");
+  const jobCount = document.getElementById("jobCount");
 
-  jobCount.textContent = `${filteredJobs.length}件の求人が見つかりました`
+  jobCount.textContent = `${filteredJobs.length}件の求人が見つかりました`;
 
   if (filteredJobs.length === 0) {
     container.innerHTML = `
@@ -236,9 +278,9 @@ function renderJobListings() {
                     <p class="text-sm">検索条件を変更してお試しください</p>
                 </div>
             </div>
-        `
-    lucide.createIcons()
-    return
+        `;
+    lucide.createIcons();
+    return;
   }
 
   container.innerHTML = filteredJobs
@@ -248,7 +290,9 @@ function renderJobListings() {
             <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                 <div class="flex-1">
                     <div class="flex items-start justify-between mb-2">
-                        <h3 class="text-xl font-semibold text-foreground hover:text-primary transition-colors cursor-pointer text-balance" onclick="viewJobDetail(${job.id})">
+                        <h3 class="text-xl font-semibold text-foreground hover:text-primary transition-colors cursor-pointer text-balance" onclick="viewJobDetail(${
+                          job.id
+                        })">
                             ${job.title}
                         </h3>
                         <span class="ml-2 px-2 py-1 bg-accent text-accent-foreground text-xs rounded-full border border-border">
@@ -256,9 +300,13 @@ function renderJobListings() {
                         </span>
                     </div>
                     
-                    <h4 class="text-lg font-medium text-muted-foreground mb-3">${job.company}</h4>
+                    <h4 class="text-lg font-medium text-muted-foreground mb-3">${
+                      job.company
+                    }</h4>
                     
-                    <p class="text-muted-foreground mb-4 leading-relaxed">${job.description}</p>
+                    <p class="text-muted-foreground mb-4 leading-relaxed">${
+                      job.description
+                    }</p>
                     
                     <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
                         <div class="flex items-center gap-1">
@@ -282,14 +330,16 @@ function renderJobListings() {
                             <span class="px-2 py-1 bg-accent text-accent-foreground text-xs rounded-full border border-border">
                                 ${tag}
                             </span>
-                        `,
+                        `
                           )
                           .join("")}
                     </div>
                 </div>
                 
                 <div class="flex flex-col gap-2 lg:ml-6">
-                    <button onclick="viewJobDetail(${job.id})" class="bg-primary text-primary-foreground px-6 py-2 rounded-md font-medium hover:bg-primary/90 transition-colors whitespace-nowrap">
+                    <button onclick="viewJobDetail(${
+                      job.id
+                    })" class="bg-primary text-primary-foreground px-6 py-2 rounded-md font-medium hover:bg-primary/90 transition-colors whitespace-nowrap">
                         詳細を見る
                     </button>
                     <button class="border border-border bg-transparent px-6 py-2 rounded-md font-medium hover:bg-muted transition-colors whitespace-nowrap flex items-center justify-center gap-2">
@@ -299,19 +349,19 @@ function renderJobListings() {
                 </div>
             </div>
         </div>
-    `,
+    `
     )
-    .join("")
+    .join("");
 
   // Re-initialize Lucide icons for the new content
-  lucide.createIcons()
+  lucide.createIcons();
 }
 
 function viewJobDetail(jobId) {
   // In a real application, you would navigate to the job detail page
   // For this demo, we'll just show an alert
-  window.location.href = `job-detail.html?id=${jobId}`
+  window.location.href = `job-detail.html?id=${jobId}`;
 }
 
 // Export functions for global access
-window.viewJobDetail = viewJobDetail
+window.viewJobDetail = viewJobDetail;

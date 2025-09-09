@@ -1,29 +1,35 @@
-"use client"
+import type React from "react";
 
-import type React from "react"
-
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import { Upload, FileText, User, Mail, Phone, MapPin, Building2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Label } from "@/components/ui/label"
-import { getJobById } from "@/lib/jobs"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import {
+  Upload,
+  FileText,
+  User,
+  Mail,
+  Phone,
+  MapPin,
+  Building2,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
+import { getJobById } from "@/lib/jobs";
 
 interface ApplyPageProps {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 export default function ApplyPage({ params }: ApplyPageProps) {
-  const router = useRouter()
-  const jobId = Number.parseInt(params.id)
-  const job = getJobById(jobId)
+  const router = useRouter();
+  const jobId = Number.parseInt(params.id);
+  const job = getJobById(jobId);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -34,37 +40,39 @@ export default function ApplyPage({ params }: ApplyPageProps) {
     coverLetter: "",
     experience: "",
     motivation: "",
-  })
+  });
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [resumeFile, setResumeFile] = useState<File | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
 
   if (!job) {
-    return <div>求人が見つかりません</div>
+    return <div>求人が見つかりません</div>;
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
+    const file = e.target.files?.[0];
     if (file) {
-      setResumeFile(file)
+      setResumeFile(file);
     }
-  }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     // Redirect to success page
-    router.push(`/jobs/${jobId}/apply/success`)
-  }
+    router.push(`/jobs/${jobId}/apply/success`);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -77,13 +85,22 @@ export default function ApplyPage({ params }: ApplyPageProps) {
               <h1 className="text-2xl font-bold">JobSearch</h1>
             </div>
             <nav className="hidden md:flex items-center space-x-6">
-              <Link href="/" className="hover:text-primary-foreground/80 transition-colors">
+              <Link
+                href="/"
+                className="hover:text-primary-foreground/80 transition-colors"
+              >
                 求人検索
               </Link>
-              <a href="#" className="hover:text-primary-foreground/80 transition-colors">
+              <a
+                href="#"
+                className="hover:text-primary-foreground/80 transition-colors"
+              >
                 企業情報
               </a>
-              <a href="#" className="hover:text-primary-foreground/80 transition-colors">
+              <a
+                href="#"
+                className="hover:text-primary-foreground/80 transition-colors"
+              >
                 転職ガイド
               </a>
               <Button variant="secondary" size="sm">
@@ -108,7 +125,10 @@ export default function ApplyPage({ params }: ApplyPageProps) {
             求人一覧
           </Link>
           <span>/</span>
-          <Link href={`/jobs/${jobId}`} className="hover:text-foreground transition-colors">
+          <Link
+            href={`/jobs/${jobId}`}
+            className="hover:text-foreground transition-colors"
+          >
             求人詳細
           </Link>
           <span>/</span>
@@ -124,7 +144,9 @@ export default function ApplyPage({ params }: ApplyPageProps) {
                   <FileText className="h-5 w-5" />
                   求人応募フォーム
                 </CardTitle>
-                <p className="text-muted-foreground">以下の情報を入力して応募してください。すべての項目は必須です。</p>
+                <p className="text-muted-foreground">
+                  以下の情報を入力して応募してください。すべての項目は必須です。
+                </p>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -232,9 +254,13 @@ export default function ApplyPage({ params }: ApplyPageProps) {
                         <label htmlFor="resume" className="cursor-pointer">
                           <Upload className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
                           <p className="text-sm text-muted-foreground">
-                            {resumeFile ? resumeFile.name : "PDFまたはWordファイルをアップロード"}
+                            {resumeFile
+                              ? resumeFile.name
+                              : "PDFまたはWordファイルをアップロード"}
                           </p>
-                          <p className="text-xs text-muted-foreground mt-1">最大サイズ: 10MB</p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            最大サイズ: 10MB
+                          </p>
                         </label>
                       </div>
                     </div>
@@ -285,7 +311,12 @@ export default function ApplyPage({ params }: ApplyPageProps) {
 
                   {/* Submit Button */}
                   <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                    <Button type="submit" size="lg" className="flex-1" disabled={isSubmitting}>
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="flex-1"
+                      disabled={isSubmitting}
+                    >
                       {isSubmitting ? "応募中..." : "応募する"}
                     </Button>
                     <Button
@@ -311,7 +342,9 @@ export default function ApplyPage({ params }: ApplyPageProps) {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <h3 className="font-semibold text-lg text-balance">{job.title}</h3>
+                  <h3 className="font-semibold text-lg text-balance">
+                    {job.title}
+                  </h3>
                   <p className="text-muted-foreground">{job.company}</p>
                 </div>
 
@@ -336,7 +369,11 @@ export default function ApplyPage({ params }: ApplyPageProps) {
 
                 <div className="pt-4 border-t">
                   <Link href={`/jobs/${jobId}`}>
-                    <Button variant="outline" size="sm" className="w-full bg-transparent">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full bg-transparent"
+                    >
                       求人詳細を見る
                     </Button>
                   </Link>
@@ -371,5 +408,5 @@ export default function ApplyPage({ params }: ApplyPageProps) {
         </div>
       </main>
     </div>
-  )
+  );
 }

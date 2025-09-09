@@ -1,21 +1,21 @@
-import Link from "next/link"
-import { CheckCircle, ArrowRight, Building2, Mail, Clock } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { getJobById } from "@/lib/jobs"
+import Link from "next/link";
+import { CheckCircle, ArrowRight, Building2, Mail, Clock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getJobById } from "@/lib/jobs";
 
 interface SuccessPageProps {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 export default function ApplicationSuccessPage({ params }: SuccessPageProps) {
-  const jobId = Number.parseInt(params.id)
-  const job = getJobById(jobId)
+  const jobId = Number.parseInt(params.id);
+  const job = getJobById(jobId);
 
   if (!job) {
-    return <div>求人が見つかりません</div>
+    return <div>求人が見つかりません</div>;
   }
 
   return (
@@ -29,13 +29,22 @@ export default function ApplicationSuccessPage({ params }: SuccessPageProps) {
               <h1 className="text-2xl font-bold">JobSearch</h1>
             </div>
             <nav className="hidden md:flex items-center space-x-6">
-              <Link href="/" className="hover:text-primary-foreground/80 transition-colors">
+              <Link
+                href="/"
+                className="hover:text-primary-foreground/80 transition-colors"
+              >
                 求人検索
               </Link>
-              <a href="#" className="hover:text-primary-foreground/80 transition-colors">
+              <a
+                href="#"
+                className="hover:text-primary-foreground/80 transition-colors"
+              >
                 企業情報
               </a>
-              <a href="#" className="hover:text-primary-foreground/80 transition-colors">
+              <a
+                href="#"
+                className="hover:text-primary-foreground/80 transition-colors"
+              >
                 転職ガイド
               </a>
               <Button variant="secondary" size="sm">
@@ -58,8 +67,12 @@ export default function ApplicationSuccessPage({ params }: SuccessPageProps) {
           {/* Success Icon */}
           <div className="mb-8">
             <CheckCircle className="h-20 w-20 text-primary mx-auto mb-4" />
-            <h1 className="text-3xl font-bold text-foreground mb-2">応募完了</h1>
-            <p className="text-xl text-muted-foreground">ご応募ありがとうございました</p>
+            <h1 className="text-3xl font-bold text-foreground mb-2">
+              応募完了
+            </h1>
+            <p className="text-xl text-muted-foreground">
+              ご応募ありがとうございました
+            </p>
           </div>
 
           {/* Job Info */}
@@ -69,7 +82,9 @@ export default function ApplicationSuccessPage({ params }: SuccessPageProps) {
             </CardHeader>
             <CardContent>
               <div className="text-center space-y-2">
-                <h2 className="text-xl font-semibold text-balance">{job.title}</h2>
+                <h2 className="text-xl font-semibold text-balance">
+                  {job.title}
+                </h2>
                 <p className="text-lg text-muted-foreground">{job.company}</p>
                 <p className="text-sm text-muted-foreground">
                   応募ID: APP-{jobId}-{Date.now().toString().slice(-6)}
@@ -88,7 +103,9 @@ export default function ApplicationSuccessPage({ params }: SuccessPageProps) {
                 <Mail className="h-5 w-5 text-primary mt-1" />
                 <div>
                   <h3 className="font-semibold">確認メール送信</h3>
-                  <p className="text-sm text-muted-foreground">応募確認メールを送信いたします（数分以内）</p>
+                  <p className="text-sm text-muted-foreground">
+                    応募確認メールを送信いたします（数分以内）
+                  </p>
                 </div>
               </div>
 
@@ -96,7 +113,9 @@ export default function ApplicationSuccessPage({ params }: SuccessPageProps) {
                 <Clock className="h-5 w-5 text-primary mt-1" />
                 <div>
                   <h3 className="font-semibold">企業からの連絡</h3>
-                  <p className="text-sm text-muted-foreground">1週間以内に企業から選考に関するご連絡をいたします</p>
+                  <p className="text-sm text-muted-foreground">
+                    1週間以内に企業から選考に関するご連絡をいたします
+                  </p>
                 </div>
               </div>
 
@@ -104,7 +123,9 @@ export default function ApplicationSuccessPage({ params }: SuccessPageProps) {
                 <CheckCircle className="h-5 w-5 text-primary mt-1" />
                 <div>
                   <h3 className="font-semibold">選考プロセス</h3>
-                  <p className="text-sm text-muted-foreground">書類選考→面接→最終選考の流れで進行いたします</p>
+                  <p className="text-sm text-muted-foreground">
+                    書類選考→面接→最終選考の流れで進行いたします
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -140,5 +161,5 @@ export default function ApplicationSuccessPage({ params }: SuccessPageProps) {
         </div>
       </main>
     </div>
-  )
+  );
 }

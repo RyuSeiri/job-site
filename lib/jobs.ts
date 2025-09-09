@@ -41,7 +41,13 @@ export const jobListings = [
 - 最新のMacBook Pro支給
 - 書籍・学習費用補助
     `,
-    benefits: ["社会保険完備", "交通費支給", "リモートワーク可", "書籍購入補助", "健康診断"],
+    benefits: [
+      "社会保険完備",
+      "交通費支給",
+      "リモートワーク可",
+      "書籍購入補助",
+      "健康診断",
+    ],
     workingHours: "9:00-18:00（フレックスタイム制）",
     holidays: "土日祝、年末年始、有給休暇",
     companySize: "50名",
@@ -90,7 +96,13 @@ export const jobListings = [
 - 最新の開発環境
 - 技術書・カンファレンス参加費補助
     `,
-    benefits: ["社会保険完備", "交通費支給", "フルリモート可", "技術書購入補助", "カンファレンス参加費補助"],
+    benefits: [
+      "社会保険完備",
+      "交通費支給",
+      "フルリモート可",
+      "技術書購入補助",
+      "カンファレンス参加費補助",
+    ],
     workingHours: "コアタイム10:00-15:00（フレックスタイム制）",
     holidays: "土日祝、年末年始、有給休暇、リフレッシュ休暇",
     companySize: "500名",
@@ -139,7 +151,13 @@ export const jobListings = [
 - デザイン関連書籍・セミナー参加費補助
 - 作品制作時間の確保
     `,
-    benefits: ["社会保険完備", "交通費支給", "デザイン書籍購入補助", "セミナー参加費補助", "作品制作支援"],
+    benefits: [
+      "社会保険完備",
+      "交通費支給",
+      "デザイン書籍購入補助",
+      "セミナー参加費補助",
+      "作品制作支援",
+    ],
     workingHours: "9:30-18:30",
     holidays: "土日祝、年末年始、有給休暇、夏季休暇",
     companySize: "30名",
@@ -188,7 +206,13 @@ export const jobListings = [
 - 継続的な学習支援
 - 成果に応じたインセンティブ
     `,
-    benefits: ["社会保険完備", "交通費支給", "成果インセンティブ", "学習支援制度", "ストックオプション"],
+    benefits: [
+      "社会保険完備",
+      "交通費支給",
+      "成果インセンティブ",
+      "学習支援制度",
+      "ストックオプション",
+    ],
     workingHours: "9:00-18:00（フレックスタイム制）",
     holidays: "土日祝、年末年始、有給休暇、特別休暇",
     companySize: "100名",
@@ -237,7 +261,13 @@ AI技術の研究開発を行う企業で、機械学習モデルの開発とデ
 - 学会参加・論文投稿支援
 - 継続的な技術学習支援
     `,
-    benefits: ["社会保険完備", "交通費支給", "学会参加費補助", "論文投稿支援", "技術書購入補助"],
+    benefits: [
+      "社会保険完備",
+      "交通費支給",
+      "学会参加費補助",
+      "論文投稿支援",
+      "技術書購入補助",
+    ],
     workingHours: "9:00-18:00（フレックスタイム制）",
     holidays: "土日祝、年末年始、有給休暇、研究休暇",
     companySize: "80名",
@@ -286,7 +316,13 @@ AI技術の研究開発を行う企業で、機械学習モデルの開発とデ
 - 技術カンファレンス参加支援
 - 資格取得支援制度
     `,
-    benefits: ["社会保険完備", "フルリモート可", "資格取得支援", "カンファレンス参加費補助", "技術書購入補助"],
+    benefits: [
+      "社会保険完備",
+      "フルリモート可",
+      "資格取得支援",
+      "カンファレンス参加費補助",
+      "技術書購入補助",
+    ],
     workingHours: "フレックスタイム制（コアタイムなし）",
     holidays: "土日祝、年末年始、有給休暇、リフレッシュ休暇",
     companySize: "200名",
@@ -335,7 +371,13 @@ AI技術の研究開発を行う企業で、機械学習モデルの開発とデ
 - 継続的な学習支援
 - 成果に応じた評価制度
     `,
-    benefits: ["社会保険完備", "交通費支給", "成果インセンティブ", "学習支援制度", "正社員登用制度"],
+    benefits: [
+      "社会保険完備",
+      "交通費支給",
+      "成果インセンティブ",
+      "学習支援制度",
+      "正社員登用制度",
+    ],
     workingHours: "9:00-18:00",
     holidays: "土日祝、年末年始、有給休暇",
     companySize: "150名",
@@ -384,25 +426,35 @@ AI技術の研究開発を行う企業で、機械学習モデルの開発とデ
 - 正社員登用制度あり
 - 資格取得支援制度
     `,
-    benefits: ["社会保険完備", "交通費支給", "正社員登用制度", "資格取得支援", "研修制度充実"],
+    benefits: [
+      "社会保険完備",
+      "交通費支給",
+      "正社員登用制度",
+      "資格取得支援",
+      "研修制度充実",
+    ],
     workingHours: "9:00-18:00",
     holidays: "土日祝、年末年始、有給休暇",
     companySize: "1000名",
     established: "1995年",
     industry: "IT・システム開発",
   },
-]
+];
 
 export function getJobById(id: number) {
-  return jobListings.find((job) => job.id === id)
+  return jobListings.find((job) => job.id === id);
 }
 
 export function getRelatedJobs(currentJobId: number, limit = 3) {
-  const currentJob = getJobById(currentJobId)
-  if (!currentJob) return []
+  const currentJob = getJobById(currentJobId);
+  if (!currentJob) return [];
 
   return jobListings
     .filter((job) => job.id !== currentJobId)
-    .filter((job) => job.prefecture === currentJob.prefecture || job.tags.some((tag) => currentJob.tags.includes(tag)))
-    .slice(0, limit)
+    .filter(
+      (job) =>
+        job.prefecture === currentJob.prefecture ||
+        job.tags.some((tag) => currentJob.tags.includes(tag))
+    )
+    .slice(0, limit);
 }
