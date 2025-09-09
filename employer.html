@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業管理ダッシュボード - JobSearch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#059669',
+                        'primary-foreground': '#ffffff',
+                        background: '#ffffff',
+                        foreground: '#0f172a',
+                        muted: '#f8fafc',
+                        'muted-foreground': '#64748b',
+                        border: '#e2e8f0',
+                        accent: '#f1f5f9'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body class="min-h-screen bg-background">
+    <!-- Header -->
+    <header class="bg-primary text-primary-foreground shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="building-2" class="h-8 w-8"></i>
+                    <h1 class="text-2xl font-bold">JobSearch 企業管理</h1>
+                </div>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="hover:text-primary-foreground/80 transition-colors">求人サイト</a>
+                    <a href="#" class="hover:text-primary-foreground/80 transition-colors">サポート</a>
+                    <button class="bg-white text-primary px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">ログアウト</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Page Header -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-foreground mb-2">採用管理ダッシュボード</h1>
+                <p class="text-muted-foreground">求人の管理と応募者の選考を効率的に行えます</p>
+            </div>
+            <button class="bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors flex items-center gap-2 mt-4 md:mt-0">
+                <i data-lucide="plus" class="h-4 w-4"></i>
+                新しい求人を投稿
+            </button>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-sm border border-border p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-muted-foreground">掲載中の求人</p>
+                        <p class="text-3xl font-bold text-primary">3</p>
+                    </div>
+                    <i data-lucide="building-2" class="h-8 w-8 text-primary"></i>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-border p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-muted-foreground">総応募数</p>
+                        <p class="text-3xl font-bold text-blue-600">45</p>
+                    </div>
+                    <i data-lucide="users" class="h-8 w-8 text-blue-500"></i>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-border p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-muted-foreground">新規応募</p>
+                        <p class="text-3xl font-bold text-green-600">8</p>
+                    </div>
+                    <i data-lucide="clock" class="h-8 w-8 text-green-500"></i>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-border p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-muted-foreground">総閲覧数</p>
+                        <p class="text-3xl font-bold text-purple-600">1,024</p>
+                    </div>
+                    <i data-lucide="eye" class="h-8 w-8 text-purple-500"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="mb-6">
+            <div class="border-b border-border">
+                <nav class="-mb-px flex space-x-8">
+                    <button class="tab-button active py-2 px-1 border-b-2 border-primary text-primary font-medium text-sm" data-tab="overview">
+                        概要
+                    </button>
+                    <button class="tab-button py-2 px-1 border-b-2 border-transparent text-muted-foreground hover:text-foreground hover:border-border font-medium text-sm" data-tab="jobs">
+                        求人管理
+                    </button>
+                    <button class="tab-button py-2 px-1 border-b-2 border-transparent text-muted-foreground hover:text-foreground hover:border-border font-medium text-sm" data-tab="applications">
+                        応募者管理
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div id="overview" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Recent Applications -->
+                <div class="bg-white rounded-lg shadow-sm border border-border p-6">
+                    <h3 class="text-xl font-bold flex items-center gap-2 mb-4">
+                        <i data-lucide="users" class="h-5 w-5"></i>
+                        最新の応募
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 border border-border rounded-lg">
+                            <div class="flex-1">
+                                <h4 class="font-medium">田中 太郎</h4>
+                                <p class="text-sm text-muted-foreground">フロントエンドエンジニア</p>
+                                <p class="text-xs text-muted-foreground">経験: 3年</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="mb-1 px-2 py-1 bg-blue-100 text-blue-800 border-blue-200 text-xs rounded-full">新規</span>
+                                <p class="text-xs text-muted-foreground">2024-01-16</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 border border-border rounded-lg">
+                            <div class="flex-1">
+                                <h4 class="font-medium">佐藤 花子</h4>
+                                <p class="text-sm text-muted-foreground">バックエンドエンジニア</p>
+                                <p class="text-xs text-muted-foreground">経験: 5年</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="mb-1 px-2 py-1 bg-yellow-100 text-yellow-800 border-yellow-200 text-xs rounded-full">書類選考中</span>
+                                <p class="text-xs text-muted-foreground">2024-01-15</p>
+                            </div>
+                        </div>
+                        <button class="w-full border border-border bg-transparent px-4 py-2 rounded-md font-medium hover:bg-muted transition-colors">
+                            すべての応募を見る
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Job Performance -->
+                <div class="bg-white rounded-lg shadow-sm border border-border p-6">
+                    <h3 class="text-xl font-bold flex items-center gap-2 mb-4">
+                        <i data-lucide="trending-up" class="h-5 w-5"></i>
+                        求人パフォーマンス
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 border border-border rounded-lg">
+                            <div class="flex-1">
+                                <h4 class="font-medium">フロントエンドエンジニア</h4>
+                                <div class="flex items-center gap-4 text-sm text-muted-foreground mt-1">
+                                    <span class="flex items-center gap-1">
+                                        <i data-lucide="users" class="h-3 w-3"></i>
+                                        15件
+                                    </span>
+                                    <span class="flex items-center gap-1">
+                                        <i data-lucide="eye" class="h-3 w-3"></i>
+                                        234回
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="mb-1 px-2 py-1 bg-green-100 text-green-800 border-green-200 text-xs rounded-full">掲載中</span>
+                                <p class="text-xs text-green-600 font-medium">新規 3件</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 border border-border rounded-lg">
+                            <div class="flex-1">
+                                <h4 class="font-medium">バックエンドエンジニア</h4>
+                                <div class="flex items-center gap-4 text-sm text-muted-foreground mt-1">
+                                    <span class="flex items-center gap-1">
+                                        <i data-lucide="users" class="h-3 w-3"></i>
+                                        22件
+                                    </span>
+                                    <span class="flex items-center gap-1">
+                                        <i data-lucide="eye" class="h-3 w-3"></i>
+                                        189回
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="mb-1 px-2 py-1 bg-green-100 text-green-800 border-green-200 text-xs rounded-full">掲載中</span>
+                                <p class="text-xs text-green-600 font-medium">新規 5件</p>
+                            </div>
+                        </div>
+                        <button class="w-full border border-border bg-transparent px-4 py-2 rounded-md font-medium hover:bg-muted transition-colors">
+                            すべての求人を管理
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="jobs" class="tab-content hidden">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold">求人管理</h2>
+                <button class="bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium hover:bg-primary/90 transition-colors flex items-center gap-2">
+                    <i data-lucide="plus" class="h-4 w-4"></i>
+                    新規投稿
+                </button>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-sm border border-border p-6 hover:shadow-md transition-shadow">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div class="flex-1">
+                            <div class="flex items-start justify-between mb-2">
+                                <h3 class="text-xl font-semibold">フロントエンドエンジニア</h3>
+                                <span class="ml-2 px-2 py-1 bg-green-100 text-green-800 border-green-200 text-xs rounded-full">掲載中</span>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground mb-4">
+                                <div class="flex items-center gap-1">
+                                    <i data-lucide="calendar" class="h-4 w-4"></i>
+                                    投稿日: 2024-01-10
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i data-lucide="users" class="h-4 w-4"></i>
+                                    応募: 15件
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i data-lucide="eye" class="h-4 w-4"></i>
+                                    閲覧: 234回
+                                </div>
+                                <div class="flex items-center gap-1 text-green-600 font-medium">
+                                    <i data-lucide="clock" class="h-4 w-4"></i>
+                                    新規: 3件
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <button class="border border-border bg-transparent px-4 py-2 rounded-md text-sm font-medium hover:bg-muted transition-colors">求人を見る</button>
+                            <button class="border border-border bg-transparent px-4 py-2 rounded-md text-sm font-medium hover:bg-muted transition-colors">編集</button>
+                            <button class="bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition-colors">応募者を見る</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="applications" class="tab-content hidden">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold">応募者管理</h2>
+                <div class="flex gap-2">
+                    <button class="border border-border bg-transparent px-4 py-2 rounded-md text-sm font-medium hover:bg-muted transition-colors">フィルター</button>
+                    <button class="border border-border bg-transparent px-4 py-2 rounded-md text-sm font-medium hover:bg-muted transition-colors">エクスポート</button>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-sm border border-border p-6 hover:shadow-md transition-shadow">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div class="flex-1">
+                            <div class="flex items-start justify-between mb-2">
+                                <h3 class="text-xl font-semibold">田中 太郎</h3>
+                                <span class="ml-2 px-2 py-1 bg-blue-100 text-blue-800 border-blue-200 text-xs rounded-full">新規</span>
+                            </div>
+                            <p class="text-lg text-muted-foreground mb-2">フロントエンドエンジニア</p>
+                            <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                                <div class="flex items-center gap-1">
+                                    <i data-lucide="calendar" class="h-4 w-4"></i>
+                                    応募日: 2024-01-16
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i data-lucide="briefcase" class="h-4 w-4"></i>
+                                    経験: 3年
+                                </div>
+                                <div>応募ID: APP-001</div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <button class="border border-border bg-transparent px-4 py-2 rounded-md text-sm font-medium hover:bg-muted transition-colors">履歴書を見る</button>
+                            <button class="border border-border bg-transparent px-4 py-2 rounded-md text-sm font-medium hover:bg-muted transition-colors">メッセージ</button>
+                            <button class="bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition-colors">選考開始</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                
+                // Hide all tab contents
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // Remove active class from all buttons
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active', 'border-primary', 'text-primary');
+                    btn.classList.add('border-transparent', 'text-muted-foreground');
+                });
+                
+                // Show selected tab content
+                document.getElementById(tabName).classList.remove('hidden');
+                
+                // Add active class to clicked button
+                this.classList.add('active', 'border-primary', 'text-primary');
+                this.classList.remove('border-transparent', 'text-muted-foreground');
+            });
+        });
+    </script>
+</body>
+</html>

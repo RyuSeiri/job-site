@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobSearch - 求人検索サイト</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#059669',
+                        'primary-foreground': '#ffffff',
+                        background: '#ffffff',
+                        foreground: '#0f172a',
+                        muted: '#f8fafc',
+                        'muted-foreground': '#64748b',
+                        border: '#e2e8f0',
+                        accent: '#f1f5f9'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body class="min-h-screen bg-background">
+    <!-- Header -->
+    <header class="bg-primary text-primary-foreground shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="building-2" class="h-8 w-8"></i>
+                    <h1 class="text-2xl font-bold">JobSearch</h1>
+                </div>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="hover:text-primary-foreground/80 transition-colors">求人検索</a>
+                    <a href="#" class="hover:text-primary-foreground/80 transition-colors">企業情報</a>
+                    <a href="#" class="hover:text-primary-foreground/80 transition-colors">転職ガイド</a>
+                    <button class="bg-white text-primary px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">ログイン</button>
+                    <button class="border border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary bg-transparent px-4 py-2 rounded-md text-sm font-medium transition-colors">会員登録</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-primary/5 to-primary/10 py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">理想の転職を実現しよう</h1>
+                <p class="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">あなたのスキルと経験を活かせる最適な求人を見つけて、キャリアアップを実現しましょう</p>
+            </div>
+
+            <!-- Search Form -->
+            <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
+                <form id="searchForm" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="relative">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4"></i>
+                        <input type="text" id="keywordSearch" placeholder="職種、キーワードで検索" class="w-full pl-10 pr-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    <div class="relative">
+                        <i data-lucide="map-pin" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4"></i>
+                        <input type="text" id="locationSearch" placeholder="勤務地で検索" class="w-full pl-10 pr-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    <button type="submit" class="bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+                        <i data-lucide="search" class="h-4 w-4"></i>
+                        検索
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar Filters -->
+            <aside class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-sm border border-border p-6 sticky top-4">
+                    <h3 class="text-lg font-semibold mb-4">絞り込み検索</h3>
+                    
+                    <!-- Employment Type Filter -->
+                    <div class="mb-6">
+                        <h4 class="font-medium mb-3">雇用形態</h4>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="employment-filter rounded border-border text-primary focus:ring-primary" value="正社員">
+                                <span class="ml-2 text-sm">正社員</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="employment-filter rounded border-border text-primary focus:ring-primary" value="契約社員">
+                                <span class="ml-2 text-sm">契約社員</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="employment-filter rounded border-border text-primary focus:ring-primary" value="派遣社員">
+                                <span class="ml-2 text-sm">派遣社員</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="employment-filter rounded border-border text-primary focus:ring-primary" value="アルバイト・パート">
+                                <span class="ml-2 text-sm">アルバイト・パート</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Salary Filter -->
+                    <div class="mb-6">
+                        <h4 class="font-medium mb-3">年収</h4>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="salary-filter rounded border-border text-primary focus:ring-primary" value="300-400">
+                                <span class="ml-2 text-sm">300万円〜400万円</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="salary-filter rounded border-border text-primary focus:ring-primary" value="400-600">
+                                <span class="ml-2 text-sm">400万円〜600万円</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="salary-filter rounded border-border text-primary focus:ring-primary" value="600-800">
+                                <span class="ml-2 text-sm">600万円〜800万円</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="salary-filter rounded border-border text-primary focus:ring-primary" value="800+">
+                                <span class="ml-2 text-sm">800万円以上</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Location Filter -->
+                    <div class="mb-6">
+                        <h4 class="font-medium mb-3">勤務地</h4>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="location-filter rounded border-border text-primary focus:ring-primary" value="東京都">
+                                <span class="ml-2 text-sm">東京都</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="location-filter rounded border-border text-primary focus:ring-primary" value="大阪府">
+                                <span class="ml-2 text-sm">大阪府</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="location-filter rounded border-border text-primary focus:ring-primary" value="神奈川県">
+                                <span class="ml-2 text-sm">神奈川県</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="location-filter rounded border-border text-primary focus:ring-primary" value="リモート可">
+                                <span class="ml-2 text-sm">リモート可</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button id="clearFilters" class="w-full bg-muted text-muted-foreground px-4 py-2 rounded-md text-sm hover:bg-muted/80 transition-colors">フィルターをクリア</button>
+                </div>
+            </aside>
+
+            <!-- Job Listings -->
+            <div class="lg:col-span-3">
+                <!-- Results Header -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-foreground">求人一覧</h2>
+                        <p class="text-muted-foreground" id="jobCount">45件の求人が見つかりました</p>
+                    </div>
+                    <div class="mt-4 sm:mt-0">
+                        <select id="sortSelect" class="border border-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="newest">新着順</option>
+                            <option value="salary">年収順</option>
+                            <option value="popular">人気順</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Job Cards -->
+                <div id="jobListings" class="space-y-6">
+                    <!-- Job cards will be populated by JavaScript -->
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex justify-center mt-8">
+                    <nav class="flex items-center space-x-2">
+                        <button class="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors">前へ</button>
+                        <button class="px-3 py-2 text-sm bg-primary text-primary-foreground rounded-md">1</button>
+                        <button class="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors">2</button>
+                        <button class="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors">3</button>
+                        <button class="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors">次へ</button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-muted mt-16">
+        <div class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i data-lucide="building-2" class="h-6 w-6 text-primary"></i>
+                        <h3 class="text-lg font-bold">JobSearch</h3>
+                    </div>
+                    <p class="text-muted-foreground text-sm leading-relaxed">理想の転職を実現するための求人情報サイト</p>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">求職者向け</h4>
+                    <ul class="space-y-2 text-sm text-muted-foreground">
+                        <li><a href="#" class="hover:text-foreground transition-colors">求人検索</a></li>
+                        <li><a href="#" class="hover:text-foreground transition-colors">転職ガイド</a></li>
+                        <li><a href="#" class="hover:text-foreground transition-colors">履歴書作成</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">企業向け</h4>
+                    <ul class="space-y-2 text-sm text-muted-foreground">
+                        <li><a href="employer.html" class="hover:text-foreground transition-colors">求人掲載</a></li>
+                        <li><a href="#" class="hover:text-foreground transition-colors">採用支援</a></li>
+                        <li><a href="#" class="hover:text-foreground transition-colors">料金プラン</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">サポート</h4>
+                    <ul class="space-y-2 text-sm text-muted-foreground">
+                        <li><a href="#" class="hover:text-foreground transition-colors">お問い合わせ</a></li>
+                        <li><a href="#" class="hover:text-foreground transition-colors">利用規約</a></li>
+                        <li><a href="#" class="hover:text-foreground transition-colors">プライバシーポリシー</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
+                <p>&copy; 2024 JobSearch. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
